@@ -1,0 +1,38 @@
+<h1>Edit Wiki</h1>
+
+<p>Guidelines for Editing Wikis</p>
+<ul>
+  <li>This is may be for free speech but we do not tollerate hate speech</li>
+  <li>Don't swear</li>
+  <li>Don't troll in the comment section</li>
+  <li>Any use of the phrase "Fake News" will get you banned for life</li>
+</ul>
+</div>
+<div class="col-md-8">
+      <%= form_for @wiki do |f| %>
+        <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control', placeholder: "Enter wiki title" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :body %>
+            <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
+        </div>
+        <div class="form-group">
+            <%= f.submit "Save", class: 'btn btn-success' %>
+        </div>
+        <% if current_user.admin? || current_user.premium? %>
+          <div class="form-group">
+            <%= f.label :private, class: 'checkbox' do %>
+              <%= f.check_box :private %> Private wiki
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if current_user.admin? || current_user.premium? %>
+      <div class = "form-group">
+        <%= render 'collaborators/form' %>
+      </div>
+      <% end %>
+    </div>
